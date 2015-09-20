@@ -1,0 +1,23 @@
+{
+  "name": "Joj html5 player",
+  "description": "Joj html5 player",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "permissions": [
+    "http://darkland.sk/"
+  ],
+  "content_scripts": [
+    {
+      "js": ["index.js"],
+      "matches": [
+        "*://*.joj.sk/*"
+      ]
+    }
+  ],
+  "homepage_url": "https://github.com/danielhusar/joj-html5-player",
+  "icons": {
+    "16": "icon_16.png",
+    "48": "icon_48.png",
+    "128": "icon_128.png"
+  }
+}
