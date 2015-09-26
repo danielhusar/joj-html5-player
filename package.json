@@ -1,0 +1,10 @@
+{
+  "name": "joj-html5-player",
+  "repository": "danielhusar/joj-html5-player",
+  "devDependencies": {
+    "xo": "*"
+  },
+  "scripts": {
+    "test": "xo --space 2 --global chrome"
+  }
+}
