@@ -18,14 +18,13 @@
     var poster = playerHolder.dataset.poster;
     var pageid = playerHolder.dataset.pageid;
     var id = playerHolder.dataset.id;
-
     var url = window.location.origin + '/services/Video.php?clip=' + id + '&pageId=' + pageid;
+    
     request('GET', url, '', function (xml) {
       var videoUrl = parseXml(xml);
       if (videoUrl) {
         cb(videoUrl, poster);
       } else {
-        // try proxy
         request('POST', proxy, proxyInput + '=' + url, function (xml) {
           var videoUrl = parseXml(xml);
           if (videoUrl) {
