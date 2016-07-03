@@ -10,8 +10,9 @@
     {
       "js": ["index.js"],
       "matches": [
-        "*://*.joj.sk/*"
-      ]
+        "*://media.joj.sk/*"
+      ],
+      "all_frames": true
     }
   ],
   "homepage_url": "https://github.com/danielhusar/joj-html5-player",

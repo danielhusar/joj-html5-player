@@ -7,7 +7,7 @@
   var proxyInput = 'u';
   // 360|540|720
   var defaultQuality = '360';
-  var playerHolder = document.querySelector('.jn-player');
+  var playerHolder = document.querySelector('.player');
 
   /**
    * Get the stream
@@ -19,21 +19,31 @@
     var pageid = playerHolder.dataset.pageid;
     var id = playerHolder.dataset.id;
 
-    var url = window.location.origin + '/services/Video.php?clip=' + id + '&pageId=' + pageid;
-    request('GET', url, '', function (xml) {
-      var videoUrl = parseXml(xml);
-      if (videoUrl) {
-        cb(videoUrl, poster);
-      } else {
-        // try proxy
-        request('POST', proxy, proxyInput + '=' + url, function (xml) {
-          var videoUrl = parseXml(xml);
-          if (videoUrl) {
-            cb(videoUrl, poster);
-          }
-        });
-      }
-    });
+    //we have feed from poster
+    // if (poster && poster.match(/(360|540|720)\.jpg$/)) {
+    //   var videoUrl = poster.replace(/\.jpg$/, '.mp4')
+    //                 .replace(/(360|540|720)\.mp4$/, defaultQuality + '.mp4');
+    //   cb(videoUrl, poster);
+
+    // //try ajax call to feed
+    // } else {
+      var url = window.location.origin + '/services/Video.php?clip=' + id + '&pageId=' + pageid;
+      console.log(url);
+      request('GET', url, '', function (xml) {
+        var videoUrl = parseXml(xml);
+        if (videoUrl) {
+          cb(videoUrl, poster);
+        } else {
+          //try proxy
+          // request('POST', proxy, proxyInput + '=' + url, function (xml) {
+          //   var videoUrl = parseXml(xml);
+          //   if (videoUrl) {
+          //     cb(videoUrl, poster);
+          //   }
+          // });
+        }
+      });
+    //}
   }
 
   /**
@@ -71,13 +81,14 @@
 
   // init
   getStream(function (stream, poster) {
-    var playerWrap = document.querySelector('.player');
-    playerWrap.removeChild(playerHolder);
-    playerWrap.style.background = 'transparent';
+    playerHolder.removeChild(document.querySelector('.well'));
+    playerHolder.style.background = 'transparent';
 
     var player = document.createElement('video');
     player.width = '640';
     player.height = '330';
+    player.style.width = '100%';
+    player.style.height = '100%';
     player.poster = poster;
     player.controls = 'controls';
 
@@ -86,6 +97,6 @@
     source.type = 'video/mp4';
     player.appendChild(source);
 
-    playerWrap.appendChild(player);
+    playerHolder.appendChild(player);
   });
 })(this, this.document);
