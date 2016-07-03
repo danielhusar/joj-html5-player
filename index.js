@@ -18,32 +18,21 @@
     var poster = playerHolder.dataset.poster;
     var pageid = playerHolder.dataset.pageid;
     var id = playerHolder.dataset.id;
+    var url = window.location.origin + '/services/Video.php?clip=' + id + '&pageId=' + pageid;
 
-    //we have feed from poster
-    // if (poster && poster.match(/(360|540|720)\.jpg$/)) {
-    //   var videoUrl = poster.replace(/\.jpg$/, '.mp4')
-    //                 .replace(/(360|540|720)\.mp4$/, defaultQuality + '.mp4');
-    //   cb(videoUrl, poster);
-
-    // //try ajax call to feed
-    // } else {
-      var url = window.location.origin + '/services/Video.php?clip=' + id + '&pageId=' + pageid;
-      console.log(url);
-      request('GET', url, '', function (xml) {
-        var videoUrl = parseXml(xml);
-        if (videoUrl) {
-          cb(videoUrl, poster);
-        } else {
-          //try proxy
-          // request('POST', proxy, proxyInput + '=' + url, function (xml) {
-          //   var videoUrl = parseXml(xml);
-          //   if (videoUrl) {
-          //     cb(videoUrl, poster);
-          //   }
-          // });
-        }
-      });
-    //}
+    request('GET', url, '', function (xml) {
+      var videoUrl = parseXml(xml);
+      if (videoUrl) {
+        cb(videoUrl, poster);
+      } else {
+        // request('POST', proxy, proxyInput + '=' + url, function (xml) {
+        //   var videoUrl = parseXml(xml);
+        //   if (videoUrl) {
+        //     cb(videoUrl, poster);
+        //   }
+        // });
+      }
+    });
   }
 
   /**
